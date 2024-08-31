@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './signUp.module.css'
 import { Link } from 'react-router-dom'
 const SignUp = () => {
 const [errorMessage,setErrorMessage]=useState('')
-const[isMessage,setIsMessage]=useState(false)
+const [nameError,setNameError]=useState('')
+
 const [signUpform,setSignUpForm]=useState(
   {
     name:"",
@@ -14,7 +15,6 @@ const [signUpform,setSignUpForm]=useState(
   }
 )
 const onSignupFormUpdate=(e,type)=>{
-  
 setSignUpForm((p)=>{
   return{...p,[type]:e.target.value}
 })
@@ -33,33 +33,46 @@ try{
   "password": signUpform.password,
   "userType": signUpform.userType,
   });
-  if(!signUpform.name  || !signUpform.email  || !signUpform.userId  || !signUpform.password  || !signUpform.userType){
-  //  alert('please provide all deatils')
-  setIsMessage(true)
-  setErrorMessage('please provide all details')
+//   if(!signUpform.name  || !signUpform.email  || !signUpform.userId  || !signUpform.password  || !signUpform.userType){
+//   //  alert('please provide all deatils')
+//  setErrorMessage('please provide all details')
   
-  }
-  const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-    redirect: "follow"
-  };
-let fetchingData=await fetch("http://localhost:7777/signUpSignIn/api/v1/user/signUp", requestOptions)
-let result= await fetchingData.json()
-console.log(result)
-if(result){
-  setTimeout(()=>{
-    alert('signUp successfully')
-  },2000)
+//   }
+let regex = /^[a-zA-Z]+$/;
+if(!regex.test(signUpform.name)){
+ setNameError('name is not valid')
+ return 
 }
+  else{
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+  let fetchingData=await fetch("http://localhost:7777/signUpSignIn/api/v1/user/signUp", requestOptions)
+  let result= await fetchingData.json()
+  console.log(result)
+  if(result){
+    setTimeout(()=>{
+      alert('signUp successfully')
+    },2000)
+  }
+  }
+ 
 
 }
 catch(err){
 console.log(err.message)
 }
 }
-
+useEffect(()=>{
+if(errorMessage!==''){
+ setTimeout(()=>{
+  setErrorMessage('')
+ },3000)
+}
+},[errorMessage])
 console.log(signUpform)
   return (
     <div className={style['app-signUp-container']}>
@@ -70,6 +83,7 @@ console.log(signUpform)
            <div className={style['input-box']}>
             <label>name:</label>
             <input type='text' placeholder="enter name"  value={signUpform.name} onChange={(e)=>onSignupFormUpdate(e,'name')}/>
+            {nameError && <div style={{color:'red'}}>{nameError}</div>}
            </div>
            <div className={style['input-box']}>
             <label>email:</label>
@@ -88,7 +102,7 @@ console.log(signUpform)
             <input type='text' placeholder="enter userType" value={signUpform.userType} onChange={(e)=>onSignupFormUpdate(e,'userType')} />
            </div>
            <button type='submit'>Submit</button>
-          {isMessage && <div>{errorMessage}</div>}
+           {errorMessage && <div style={{color:'red'}}>{errorMessage}</div>}
           </form>
           <div className={style['login-navigation']}>
           <h3>Already have an account?</h3>
