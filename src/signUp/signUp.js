@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 const SignUp = () => {
 const [errorMessage,setErrorMessage]=useState('')
 const [nameError,setNameError]=useState('')
+const [emailError,setEmailError]=useState('')
+const [userIdError,setuserIdError]=useState('')
+
 
 const [signUpform,setSignUpForm]=useState(
   {
@@ -33,16 +36,24 @@ try{
   "password": signUpform.password,
   "userType": signUpform.userType,
   });
-//   if(!signUpform.name  || !signUpform.email  || !signUpform.userId  || !signUpform.password  || !signUpform.userType){
-//   //  alert('please provide all deatils')
-//  setErrorMessage('please provide all details')
+  if(!signUpform.name  || !signUpform.email  || !signUpform.userId  || !signUpform.password  || !signUpform.userType){
+  //  alert('please provide all deatils')
+ setErrorMessage('please provide all details')
   
-//   }
-let regex = /^[a-zA-Z]+$/;
-if(!regex.test(signUpform.name)){
- setNameError('name is not valid')
- return 
-}
+  }
+// let regex = /^[a-zA-Z]+$/;
+// if(!regex.test(signUpform.name)){
+//  setNameError('name is not valid')
+//  return 
+// }
+// if(!signUpform.email.includes('@gmail.com')){
+//   setEmailError('invalid email')
+//   return 
+// }
+// if(signUpform.userId.length!==6 || signUpform.userId.length<=6){
+//   setuserIdError('userId should not be less than 6 character')
+//   return
+// }
   else{
     const requestOptions = {
       method: "POST",
@@ -74,6 +85,7 @@ if(errorMessage!==''){
 }
 },[errorMessage])
 console.log(signUpform)
+console.log(emailError)
   return (
     <div className={style['app-signUp-container']}>
         <div className={style['signUp-main-container']}>
@@ -88,10 +100,12 @@ console.log(signUpform)
            <div className={style['input-box']}>
             <label>email:</label>
             <input type='text' placeholder="enter email" value={signUpform.email} onChange={(e)=>onSignupFormUpdate(e,'email')} />
+            {emailError && <div style={{color:'red'}}>{emailError}</div>}
            </div>
            <div className={style['input-box']}>
             <label>userId:</label>
             <input type='text' placeholder="enter userId" value={signUpform.userId} onChange={(e)=>onSignupFormUpdate(e,'userId')}/>
+            {userIdError && <div style={{color:'red'}}>{userIdError}</div>}
            </div>
            <div className={style['input-box']}>
             <label>password:</label>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import style from './login.module.css'
 const Login = () => {
+  const [error,setError]=useState('')
   const [loginUser,setLoginUser]=useState(
     {
       userId:"",
@@ -15,6 +16,7 @@ const Login = () => {
   }
   const onLoginFormSubmit=async(e)=>{
     e.preventDefault()
+    
   try{
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -42,9 +44,11 @@ const Login = () => {
   }
   catch(err){
     console.log(err.message)
+   setError(err.message)
   }
   }
   console.log(loginUser)
+  console.log(error)
   return (
     <div className={style['login-container']}>
       <div className={style['login-main-container']}>
@@ -58,6 +62,7 @@ const Login = () => {
             <label>password:</label>
             <input type='text' placeholder='enter password' value={loginUser.password} onChange={(e)=>onLoginFormUpdate(e,'password')}/>
           </div>
+          {error && <div style={{color:"red"}}>{error}</div>}
           <button type='submit'>Submit</button>
         </form>
       </div>
