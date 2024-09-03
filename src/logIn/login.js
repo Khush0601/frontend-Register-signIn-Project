@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import style from './login.module.css'
 import {useNavigate}  from "react-router"
 
-const Login = () => {
+const Login = ({setUser}) => {
 
   const initLoginForm={
     userId:"",
     password:"",
   }
+ 
   const [loginUser,setLoginUser]=useState(initLoginForm)
   const [error,setError]=useState(initLoginForm)
   const [success,setSuccess]=useState('')
@@ -54,25 +55,22 @@ const Login = () => {
    let saveUser=await fetch("http://localhost:7777/signUpSignIn/api/v1/user/signIn", requestOptions)
   //  console.log(saveUser.status)
    let response=await saveUser.json()
-   console.log(response)
-
-   if(saveUser.status!==200){
+  console.log(response)
+if(saveUser.status!==200){
    setError({
     serverErrorMessage:response.message
    })
    }
    else{
+    setUser(response)
   setSuccess('login successfully')
   setTimeout(()=>{
       navigate('/home')
     },3000)
 
-
    }
    }
-
-
-  }
+}
   catch(err){
     console.log(err.message)
    setError({
@@ -81,6 +79,7 @@ const Login = () => {
   }
   }
   console.log(loginUser)
+  
   // console.log(error)
   return (
     <div className={style['login-container']}>
