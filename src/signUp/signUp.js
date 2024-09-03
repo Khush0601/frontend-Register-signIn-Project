@@ -86,7 +86,7 @@ useEffect(()=>{
 if(errorMessage.name!=='' ||errorMessage.email!=='' || errorMessage.password!=='' || errorMessage.userId!=='' || errorMessage.userType!==''){
  setTimeout(()=>{
   setErrorMessage(initForm)
- },3000)
+ },5000)
 }
 },[errorMessage])
 
@@ -101,32 +101,27 @@ console.log(signUpform)
            <div className={style['input-box']}>
            <label>name:</label>
             <input type='text' placeholder="enter name"  value={signUpform?.name} onChange={(e)=>onSignupFormUpdate(e,'name')} />
-         
            {errorMessage?.name && <div  style={{color:'red'}}>{errorMessage?.name}</div>}
            </div>
            <div className={style['input-box']}>
             <label>email:</label>
             <input type='text' placeholder="enter email" value={signUpform?.email} onChange={(e)=>onSignupFormUpdate(e,'email')} />
-            
             {errorMessage?.email && <div  style={{color:'red'}}>{errorMessage?.email}</div>}
            </div>
            <div className={style['input-box']}>
             <label>userId:</label>
             <input type='text' placeholder="enter userId" value={signUpform?.userId} onChange={(e)=>onSignupFormUpdate(e,'userId')}/>
-            
             {errorMessage?.userId && <div  style={{color:'red'}}>{errorMessage?.userId}</div>}
            </div>
            <div className={style['input-box']}>
             <label>password:</label>
             <input type='text' placeholder="enter password" value={signUpform?.password} onChange={(e)=>onSignupFormUpdate(e,'password')}/>
-          
             {errorMessage?.password && <div  style={{color:'red'}}>{errorMessage?.password}</div>}
            </div>
            <div className={style['input-box']}>
             <label>userType:</label>
             <input type='text' placeholder="enter userType" value={signUpform?.userType} onChange={(e)=>onSignupFormUpdate(e,'userType')} />
-            
-            {errorMessage?.userType && <div  style={{color:'red'}}>{errorMessage?.userType}</div>}
+             {errorMessage?.userType && <div  style={{color:'red'}}>{errorMessage?.userType}</div>}
            </div>
            <button type='submit'>Submit</button>
           
