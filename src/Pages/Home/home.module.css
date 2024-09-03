@@ -1,0 +1,15 @@
+.home-container{
+    width:100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+  align-items: center;
+}
+.home-container>button{
+    width:100px;
+    height: 50px;
+    background-color: rgb(183, 172, 172);
+    margin: 10px;
+    border-radius: 10px;
+}

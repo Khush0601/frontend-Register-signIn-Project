@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import style from './login.module.css'
+import {useNavigate}  from "react-router"
+
 const Login = () => {
 
   const initLoginForm={
@@ -8,12 +10,14 @@ const Login = () => {
   }
   const [loginUser,setLoginUser]=useState(initLoginForm)
   const [error,setError]=useState(initLoginForm)
+  const [success,setSuccess]=useState('')
   const onLoginFormUpdate=(e,type)=>{
   setLoginUser((p)=>{
     return{...p,[type]:e.target.value}
   })
   }
-
+   
+  const navigate=useNavigate()
   const validator=(loginFormData)=>{
    let error={}
    if(loginFormData.userId===''){
@@ -27,7 +31,6 @@ const Login = () => {
   }
   const onLoginFormSubmit=async(e)=>{
     e.preventDefault()
-    
   try{
    let loginError=validator(loginUser)
    if(Object.keys(loginError).length>0){
@@ -59,11 +62,16 @@ const Login = () => {
    })
    }
    else{
-    setTimeout(()=>{
-      alert('login successfully')
-    },2000)
+  setSuccess('login successfully')
+  setTimeout(()=>{
+      navigate('/home')
+    },3000)
+
+
    }
    }
+
+
   }
   catch(err){
     console.log(err.message)
@@ -90,6 +98,7 @@ const Login = () => {
             {error.password && <div style={{color:"red"}}>{error.password}</div>}
           </div>
           {error.serverErrorMessage && <div style={{color:"red"}}>{error.serverErrorMessage}</div>}
+          {success && <div style={{color:"green"}}>{success}</div>}
           <button type='submit'>Submit</button>
           
         </form>
