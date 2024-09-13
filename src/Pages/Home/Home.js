@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import style from './home.module.css'
 import {useNavigate}  from "react-router"
+import { UserContext } from '../../App'
 const Home = () => {
+  const user=useContext(UserContext)
     const navigate=useNavigate()
    
   return (
@@ -9,7 +11,10 @@ const Home = () => {
         <button onClick={()=>navigate('/home')}>Home</button>
         <button onClick={()=>navigate('/about')}>About</button>
         <button onClick={()=>navigate('/contact')}>Contact</button>
-        <button onClick={()=>navigate('/technicalSupport')}>Technical support</button>
+        {
+          user?.userType==='ENGINEER' &&  <button onClick={()=>navigate('/technicalSupport')}>Technical support</button>
+        }
+       
         <button onClick={()=>navigate('/getAll')}>Get All Details</button>
         <button onClick={()=>navigate('/userProfile')}>User Profile</button>
 

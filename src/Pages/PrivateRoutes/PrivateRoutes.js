@@ -1,13 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Navigate } from 'react-router'
+import { UserContext } from '../../App'
 
-const PrivateRoutes = ({user,children}) => {
- if(user){
-    return <>{children}</>
- }
- else{
-    return <Navigate to='/login'/>
- }
+const PrivateRoutes = ({children}) => {
+ const user=useContext(UserContext)
+//  console.log(user)
+  return user ?<>{children}</> : <Navigate to='/login'/>
 }
 
 export default PrivateRoutes
