@@ -17,6 +17,7 @@ const Home = () => {
        
         <button onClick={()=>navigate('/getAll')}>Get All Details</button>
         <button onClick={()=>navigate('/userProfile')}>User Profile</button>
+        <button onClick={()=>navigate('/logout')}>Logout</button>
 
 
     </div>

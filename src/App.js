@@ -10,6 +10,7 @@ import GetallDetails from './Pages/GetAllDetails/getallDetails'
 import UserProfile from './Pages/UserProfile/UserProfile'
 import PrivateRoutes from './Pages/PrivateRoutes/PrivateRoutes'
 import ProtectedEngineerRoutes from './Pages/PotectedEngineerRoutes/ProtectedEngineerRoutes'
+import Logout from './Pages/logout/logout'
 
  export const UserContext=createContext(null)
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
     <Route path='/technicalSupport' element={<ProtectedEngineerRoutes><TechnicalSupport/></ProtectedEngineerRoutes>}/>
     <Route path='/getAll' element={<GetallDetails/>}/>
     <Route path='/userProfile' element={<UserProfile/>}/>
+    <Route path='/logout' element={<Logout setUser={setUser}/>}/>
     
 </Routes>
   
