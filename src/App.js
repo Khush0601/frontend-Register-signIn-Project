@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import {  Route, Routes } from 'react-router-dom'
 import SignUp from './signUp/signUp'
 import Login from './logIn/login'
@@ -15,8 +15,19 @@ import Logout from './Pages/logout/logout'
  export const UserContext=createContext(null)
 const App = () => {
   const [user,setUser]=useState('')
+  
   console.log(user)
   console.log('hello')
+
+  useEffect(()=>{
+ let token=localStorage.getItem('token')
+
+ 
+  if(token!==user.token || !token){
+    localStorage.setItem('token',user.token)
+  }
+ 
+  },[user])
   return (
  <UserContext.Provider value={user}>
   
